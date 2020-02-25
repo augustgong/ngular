@@ -17,7 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@libs/*": [
+        "libs/*",
+        "libs/*/src/public-api",
+        "libs/*/src/index"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

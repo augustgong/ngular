@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "apps",
+  "newProjectRoot": "libs",
   "projects": {
     "facade": {
       "projectType": "application",
@@ -116,6 +116,46 @@
             "production": {
               "devServerTarget": "facade:serve:production"
             }
+          }
+        }
+      }
+    },
+    "libs-screen": {
+      "projectType": "library",
+      "root": "libs/screen",
+      "sourceRoot": "libs/screen/src",
+      "prefix": "ngr",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/screen/tsconfig.lib.json",
+            "project": "libs/screen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/screen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/screen/src/test.ts",
+            "tsConfig": "libs/screen/tsconfig.spec.json",
+            "karmaConfig": "libs/screen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/screen/tsconfig.lib.json",
+              "libs/screen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
