@@ -1,6 +1,6 @@
 {
-  "name": "@tinydesk-angular/screen",
-  "version": "0.0.1",
+  "name": "@ngular/screen",
+  "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
