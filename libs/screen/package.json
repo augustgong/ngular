@@ -1,5 +1,5 @@
 {
-  "name": "screen",
+  "name": "@tinydesk-angular/screen",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^9.0.2",
