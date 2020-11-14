@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 // tslint:disable:prefer-const
-import {TestBed, inject, async} from '@angular/core/testing';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import {BreakPoint} from '../../../break-point';
 import {DEFAULT_BREAKPOINTS} from './break-points';
@@ -83,7 +83,7 @@ describe('break-point-provider', () => {
       return pos || ((it.alias === alias) ? it : null);
     }, accumulator);
 
-    beforeEach(async (() => {
+    beforeEach(waitForAsync (() => {
       // Configure testbed to prepare services
       TestBed.configureTestingModule({
         imports: [
