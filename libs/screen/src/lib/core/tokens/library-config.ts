@@ -33,7 +33,9 @@ export const DEFAULT_CONFIG: LayoutConfigOptions = {
 };
 
 export const LAYOUT_CONFIG = new InjectionToken<LayoutConfigOptions>(
-    'Flex Layout token, config options for the library', {
-      providedIn: 'root',
-      factory: () => DEFAULT_CONFIG
-    });
+  'Flex Layout token, config options for the library',
+  {
+    providedIn: 'root',
+    factory: () => DEFAULT_CONFIG
+  }
+);

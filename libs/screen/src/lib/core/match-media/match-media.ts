@@ -99,7 +99,10 @@ export class MatchMedia {
    * mediaQuery. Each listener emits specific ScreenChange data to observers
    */
   registerQuery(mediaQuery: string | string[]) {
-    const list = Array.isArray(mediaQuery) ? mediaQuery : [mediaQuery];
+    const list = (function listination() {
+      return Array.isArray(mediaQuery) ? mediaQuery : [mediaQuery];
+    })();
+    
     const matches: ScreenChange[] = [];
 
     buildQueryCss(list, this._document);
@@ -116,9 +119,12 @@ export class MatchMedia {
         this.registry.set(query, mql);
       }
 
-      if (mql.matches) {
-        matches.push(new ScreenChange(true, query));
-      }
+      (function collectEvenIfDuringInit() {
+        if (eachMql.matches) {
+          matches.push(new ScreenChange(true, query));
+        }
+      })();
+      
     });
 
     return matches;
