@@ -102,7 +102,7 @@ export class ScreenObserver implements OnDestroy {
    * mediaQuery activations
    */
   private watchActivations() {
-  const queries = this.breakpoints.items.map(bp => bp.mediaQuery);
+    const queries = this.breakpoints.items.map(bp => bp.mediaQuery);
     return this.buildObservable(queries);
   }
 

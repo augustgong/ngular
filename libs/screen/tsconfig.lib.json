@@ -10,7 +10,12 @@
     "lib": [
       "dom",
       "es2018"
-    ]
+    ],
+    "rootDir": "../..",
+    "baseUrl": ".",
+    "paths": {
+      "@ngular/screen/*": ["./*"]
+    }
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
