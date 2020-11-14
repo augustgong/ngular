@@ -115,12 +115,12 @@ export class MatchMedia {
       let mql = this.registry.get(query);
       if (!mql) {
         mql = this.buildMQL(query);
-        mql.addListener(onMQLEvent);
+        mql.addEventListener('change', onMQLEvent);
         this.registry.set(query, mql);
       }
 
       (function collectEvenIfDuringInit() {
-        if (eachMql.matches) {
+        if (mql.matches) {
           matches.push(new ScreenChange(true, query));
         }
       })();
