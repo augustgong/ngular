@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {Injectable, OnDestroy} from '@angular/core';
-import {ScreenChange} from '../screen-change';
+import {/*class*/ScreenChange} from '../screen-change';
 import {BreakPointRegistry, OptionalBreakPoint} from '../breakpoints/break-point-registry';
 import {MatchMedia} from '../match-media/match-media';
 import {PrintHook} from '../media-marshaller/print-hook';
@@ -57,6 +57,7 @@ import {mergeAlias} from '../add-alias';
  *    }
  *  }
  */
+// Point of very interfaced.
 @Injectable({providedIn: 'root'})
 export class ScreenObserver implements OnDestroy {
 
@@ -101,7 +102,7 @@ export class ScreenObserver implements OnDestroy {
    * mediaQuery activations
    */
   private watchActivations() {
-    const queries = this.breakpoints.items.map(bp => bp.mediaQuery);
+  const queries = this.breakpoints.items.map(bp => bp.mediaQuery);
     return this.buildObservable(queries);
   }
 

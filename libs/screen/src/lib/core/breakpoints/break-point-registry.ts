@@ -7,8 +7,8 @@
  */
 import {Injectable, Inject} from '@angular/core';
 
-import {BreakPoint} from './break-point';
-import {BREAKPOINTS} from './break-points-token';
+import {/*interface*/BreakPoint} from './break-point';
+import {/*InjectionToken*/BREAKPOINTS} from './break-points-token';
 import {sortAscendingPriority} from '../utils/sort';
 
 export type OptionalBreakPoint = BreakPoint | null;

@@ -93,7 +93,8 @@ export const DEFAULT_BREAKPOINTS: BreakPoint[] = [
     overlapping: true,
     mediaQuery: 'screen and (min-width: 960px)',
     priority: -850,
-  }, {
+  },
+  {
     alias: DEFAULT_BREAKPOINTS_ALIAS.gt_md,
     overlapping: true,
     mediaQuery: 'screen and (min-width: 1280px)',

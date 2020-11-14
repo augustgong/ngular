@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  ScreenObserver, ScreenChange,
-  DEFAULT_BREAKPOINTS_ALIAS as DeBrAlias
-} from '@libs/screen';
+import { ScreenObserver, ScreenChange } from '@libs/screen';
 
 @Component({
   selector: 'app-root',
