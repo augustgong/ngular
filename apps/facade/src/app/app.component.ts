@@ -14,8 +14,7 @@ export class AppComponent {
   constructor(
     private screenObserver: ScreenObserver,
   ) {
-    this.screenObserver.asObservable()
-    .subscribe((changes: ScreenChange[]) => {
+    this.screenObserver.asObservable().subscribe((changes: ScreenChange[]) => {
       console.log(changes);
     });
   }
