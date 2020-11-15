@@ -1,13 +1,9 @@
-import {
-  NgModule,
-  ModuleWithProviders,
-} from '@angular/core';
+import {NgModule, ModuleWithProviders} from '@angular/core';
+import {CoreModule} from './core';
 
 @NgModule({
-  imports: [
-  ],
-  exports: [
-  ],
+  imports: [CoreModule],
+  exports: [],
 })
 export class ScreenModule {
 
