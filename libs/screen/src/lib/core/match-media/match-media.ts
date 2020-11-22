@@ -186,9 +186,11 @@ function buildQueryCss(mediaQueries: string[], _document: Document) {
 }
 
 function constructMql(query: string, isBrowser: boolean): MediaQueryList {
-  const canListen = isBrowser && !!(<Window>window).matchMedia('all').addEventListener;
-
-  return canListen 
+  const canListen = (function checkBrowserHasCapableEventListener() {
+    return isBrowser && !!(<Window>window).matchMedia('all').addEventListener;
+  })();
+  
+  return canListen
   ? (<Window>window).matchMedia(query)
   : {
     matches: query === 'all' || query === '',
