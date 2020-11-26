@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { ScreenObserver, ScreenChange } from '@libs/screen';
+/*
+// If you desire run to builtted source. Use below line.
+import { ScreenObserver, ScreenChange } from '@libs/dist/screen';
+*/
 
 @Component({
   selector: 'app-root',
