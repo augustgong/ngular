@@ -23,6 +23,11 @@
         "libs/*",
         "libs/*/src/public-api",
         "libs/*/src/index"
+      ],
+      "@libs/dist/*": [
+        "dist/*",
+        "dist/*/src/public-api",
+        "dist/*/src/index"
       ]
     }
   },
