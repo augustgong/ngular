@@ -44,6 +44,7 @@ export const DEFAULT_BREAKPOINTS: BreakPoint[] = [
     priority: 900,
   },
   {
+    // up 960px <-> down 1279.9px
     alias: DEFAULT_BREAKPOINTS_ALIAS.md,
     mediaQuery: 'screen and (min-width: 960px) and (max-width: 1279.9px)',
     priority: 800,
