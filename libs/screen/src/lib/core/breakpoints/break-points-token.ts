@@ -10,17 +10,16 @@ import {inject, InjectionToken} from '@angular/core';
 import {/*interface*/BreakPoint} from './break-point';
 import {/*InjectionToken*/BREAKPOINT} from '../tokens/breakpoint-token';
 import {/*InjectionToken*/LAYOUT_CONFIG} from '../tokens/library-config';
-import {/*Data*/DEFAULT_BREAKPOINTS} from '../breakpoints/data/break-points';
-import {/*Data*/ORIENTATION_BREAKPOINTS} from '../breakpoints/data/orientation-break-points';
+import {DEFAULT_BREAKPOINTS} from '../breakpoints/data/break-points';
+import {ORIENTATION_BREAKPOINTS} from '../breakpoints/data/orientation-break-points';
 import {mergeByAlias} from '../breakpoints/breakpoint-tools';
 
 /**
  *  Injection token unique to the flex-layout library.
  *  Use this token when build a custom provider (see below).
  */
-export const BREAKPOINTS = new InjectionToken<BreakPoint[]>(
-  'Token (@ngular/screen) Breakpoints',
-  {
+export const BREAKPOINTS =
+  new InjectionToken<BreakPoint[]>('Token (@ngular/screen) Breakpoints', {
     providedIn: 'root',
     factory: () => {
       const breakpoints: any = inject(BREAKPOINT);
@@ -29,10 +28,10 @@ export const BREAKPOINTS = new InjectionToken<BreakPoint[]>(
         [],
         (breakpoints || []).map((v: BreakPoint | BreakPoint[]) => Array.isArray(v) ? v : [v])
       );
-      const builtIns = (layoutConfig.disableDefaultBps ? [] : DEFAULT_BREAKPOINTS)
-                       .concat(layoutConfig.addOrientationBps ? ORIENTATION_BREAKPOINTS : []);
-      
-      return mergeByAlias(builtIns, bpFlattenArray);
+      const builtInDefaults = (layoutConfig.disableDefaultBps ? [] : DEFAULT_BREAKPOINTS)
+        .concat(layoutConfig.addOrientationBps ? ORIENTATION_BREAKPOINTS : []);
+            
+      return mergeByAlias(builtInDefaults, bpFlattenArray);
     }
   }
 );
