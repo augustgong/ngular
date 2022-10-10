@@ -7,4 +7,3 @@
  * meant various functionality within various folder.
  */
 export * from './lib/core';
-export * from './lib/screen.module';
