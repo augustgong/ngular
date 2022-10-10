@@ -97,20 +97,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/facade/tsconfig.app.json",
-              "apps/facade/tsconfig.spec.json",
-              "apps/facade/e2e/tsconfig.json",
-              "apps/facade/tsconfig.server.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -199,18 +185,6 @@
             "main": "libs/screen/src/test.ts",
             "tsConfig": "libs/screen/tsconfig.spec.json",
             "karmaConfig": "libs/screen/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/screen/tsconfig.lib.json",
-              "libs/screen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
