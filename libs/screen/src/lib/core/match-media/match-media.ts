@@ -7,8 +7,8 @@
  */
 import {Inject, Injectable, NgZone, PLATFORM_ID} from '@angular/core';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
-import {BehaviorSubject, Observable, merge, Observer} from 'rxjs';
-import {filter} from 'rxjs/operators';
+import {BehaviorSubject, Observable, Observer, of} from 'rxjs';
+import {filter, mergeAll} from 'rxjs/operators';
 
 import {ScreenChange} from '../screen-change';
 
@@ -88,7 +88,8 @@ export class MatchMedia {
         }
         observer.complete();
       });
-      return merge(registration$, matchMedia$);
+      
+      return of(registration$, matchMedia$).pipe(mergeAll());
     }
 
     return this._observable$;
