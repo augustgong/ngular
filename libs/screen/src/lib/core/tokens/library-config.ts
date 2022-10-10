@@ -11,9 +11,7 @@ import {InjectionToken} from '@angular/core';
 export interface LayoutConfigOptions {
   addOrientationBps?: boolean;
   disableDefaultBps?: boolean;
-  disableVendorPrefixes?: boolean;
   serverLoaded?: boolean;
-  useColumnBasisZero?: boolean;
   printWithBreakpoints?: string[];
   mediaTriggerAutoRestore?: boolean;
   ssrObserveBreakpoints?: string[];
@@ -22,9 +20,7 @@ export interface LayoutConfigOptions {
 export const DEFAULT_CONFIG: LayoutConfigOptions = {
   addOrientationBps: false,
   disableDefaultBps: false,
-  disableVendorPrefixes: false,
   serverLoaded: false,
-  useColumnBasisZero: true,
   printWithBreakpoints: [],
   mediaTriggerAutoRestore: true,
   ssrObserveBreakpoints: [],
