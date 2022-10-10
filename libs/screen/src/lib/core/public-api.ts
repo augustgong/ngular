@@ -1,5 +1,4 @@
 export * from './screen-change';
-export * from './stylesheet-map/index';
 export * from './screen-observer/index';
 export * from './breakpoints';
 export * from './tokens/index';
