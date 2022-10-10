@@ -80,35 +80,6 @@
             "browserTarget": "facade:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "apps/facade/src/test.ts",
-            "polyfills": "apps/facade/src/polyfills.ts",
-            "tsConfig": "apps/facade/tsconfig.spec.json",
-            "karmaConfig": "apps/facade/karma.conf.js",
-            "assets": [
-              "apps/facade/src/favicon.ico",
-              "apps/facade/src/assets"
-            ],
-            "styles": [
-              "apps/facade/src/styles.css"
-            ],
-            "scripts": []
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "apps/facade/e2e/protractor.conf.js",
-            "devServerTarget": "facade:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "facade:serve:production"
-            }
-          }
-        },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
@@ -177,14 +148,6 @@
             "production": {
               "tsConfig": "libs/screen/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "libs/screen/src/test.ts",
-            "tsConfig": "libs/screen/tsconfig.spec.json",
-            "karmaConfig": "libs/screen/karma.conf.js"
           }
         }
       }
