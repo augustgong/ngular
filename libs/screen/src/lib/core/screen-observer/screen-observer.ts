@@ -132,8 +132,6 @@ export class ScreenObserver implements OnDestroy {
       });
     };
 
-    /**
-     */
     return this.matchMedia
         .observe(this.hook.withPrintQuery(mqList))
         .pipe(

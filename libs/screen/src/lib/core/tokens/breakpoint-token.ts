@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {InjectionToken} from '@angular/core';
-import {/*interface*/BreakPoint} from '../breakpoints/break-point';
+import type {BreakPoint} from '../breakpoints/break-point';
 
 export const BREAKPOINT = new InjectionToken<BreakPoint|BreakPoint[]|null>(
   'Flex Layout token, collect all breakpoints into one provider',
