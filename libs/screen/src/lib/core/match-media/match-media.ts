@@ -25,9 +25,11 @@ export class MatchMedia {
   readonly source = new BehaviorSubject<ScreenChange>(new ScreenChange(true));
   registry = new Map<string, MediaQueryList>();
 
-  constructor(protected _zone: NgZone,
-              @Inject(PLATFORM_ID) protected _platformId: Object,
-              @Inject(DOCUMENT) protected _document: any) {
+  constructor(
+    protected _zone: NgZone,
+    @Inject(PLATFORM_ID) protected _platformId: Object,
+    @Inject(DOCUMENT) protected _document: any
+  ) {
   }
 
   /**
@@ -73,9 +75,9 @@ export class MatchMedia {
   observe(mqList?: string[], filterOthers = false): Observable<ScreenChange> {
     if (mqList && mqList.length) {
       const matchMedia$: Observable<ScreenChange> = this._observable$.pipe(
-          filter((change: ScreenChange) => {
-            return !filterOthers ? true : (mqList.indexOf(change.mediaQuery) > -1);
-          })
+        filter((change: ScreenChange) => {
+          return !filterOthers ? true : (mqList.indexOf(change.mediaQuery) > -1);
+        })
       );
       const registration$: Observable<ScreenChange> = new Observable((observer: Observer<ScreenChange>) => {  // tslint:disable-line:max-line-length
         const matches: Array<ScreenChange> = this.registerQuery(mqList);
