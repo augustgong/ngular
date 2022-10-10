@@ -1,6 +1,6 @@
 {
   "name": "@ngular/screen",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "dependencies": {
     "tslib": "^2.0.0"
   },
