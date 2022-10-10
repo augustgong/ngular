@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {Injectable, OnDestroy} from '@angular/core';
-import {/*class*/ScreenObserved} from '../screen-observed';
+import {ScreenObserved} from '../screen-observed';
 import {BreakPointRegistry, OptionalBreakPoint} from '../breakpoints/break-point-registry';
 import {MatchMedia} from '../match-media/match-media';
 import {PrintHook} from '../media-marshaller/print-hook';
@@ -112,6 +112,9 @@ export class ScreenObserver implements OnDestroy {
    *
    * Since multiple-mediaQueries can be activation in a cycle,
    * gather all current activations into a single list of changes to observers
+   * 한번의 사이클에서 여러-미디어쿼리들이 동시에 할성상태를 나타낼 수 있기에,
+   * 옵저버들이 인지한 변경사항에 대한 현재의 모든 활성요소를 단일 리스트로 수집 합니다.
+   * 
    *
    * Inject associated (if any) alias information into the ScreenObserved event
    * - Exclude mediaQuery activations for overlapping mQs. List bounded mQ ranges only

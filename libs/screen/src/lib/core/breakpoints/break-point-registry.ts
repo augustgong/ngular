@@ -76,8 +76,6 @@ export class BreakPointRegistry {
       this.findByMap.set(key, response);
     }
     return response || null;
-
   }
 
 }
-

@@ -79,13 +79,18 @@ export class MatchMedia {
           return !filterOthers ? true : (mqList.indexOf(change.mediaQuery) > -1);
         })
       );
+      /* 'registration$'은 한번만 동작한다 */
       const registration$: Observable<ScreenObserved> = new Observable((observer: Observer<ScreenObserved>) => {  // tslint:disable-line:max-line-length
         const matches: Array<ScreenObserved> = this.registerQuery(mqList);
         if (matches.length) {
           const lastChange = matches.pop()!;
           matches.forEach((e: ScreenObserved) => {
+            //        ┌─> registration$
+            // ───────┴─────
             observer.next(e);
           });
+          //               ┌─> _observable$
+          //   ────────────┴──────────
           this.source.next(lastChange); // last match is cached
         }
         observer.complete();
@@ -100,9 +105,11 @@ export class MatchMedia {
   /**
    * Based on the BreakPointRegistry provider, register internal listeners for each unique
    * mediaQuery. Each listener emits specific ScreenObserved data to observers
+   * 'BreakPointRegistry provider'를 'Base'로, 'each unique mediaQuery'를 'internal listeners'에 등록한다.
+   * 'Each listener'는 해당 'observer'들에 대한 'specific ScreenObserved data'를 'emit'한다.
    */
-  registerQuery(mediaQuery: string | string[]) {
-    const list = (function listination() {
+  registerQuery(mediaQuery: string | string[]): ScreenObserved[] {
+    const queryList = (function listination() {
       return Array.isArray(mediaQuery) ? mediaQuery : [mediaQuery];
     })();
     
@@ -113,12 +120,12 @@ export class MatchMedia {
      */
     // buildQueryCss(list, this._document);
 
-    list.forEach((query: string) => {
+    queryList.forEach((query: string) => {
       const onMQLEvent = (e: MediaQueryListEvent) => {
         this._zone.run(() => this.source.next(new ScreenObserved(e.matches, query)));
       };
 
-      let mql = this.registry.get(query);
+      let mql: MediaQueryList = this.registry.get(query);
       if (!mql) {
         mql = this.buildMQL(query);
         mql.addEventListener('change', onMQLEvent);
@@ -197,7 +204,7 @@ function constructMql(query: string, isBrowser: boolean): MediaQueryList {
   })();
   
   return canListen
-  ? (<Window>window).matchMedia(query)
+  ? (<Window>window).matchMedia(query) as MediaQueryList
   : {
     matches: query === 'all' || query === '',
     media: query,
