@@ -105,7 +105,10 @@ export class MatchMedia {
     
     const matches: ScreenChange[] = [];
 
-    buildQueryCss(list, this._document);
+    /** 
+     * 아래 문제는 일어나지 않는 걸로 보인다. 일단 코멘트 처리만 해두고, 상황을 지켜 보자.
+     */
+    // buildQueryCss(list, this._document);
 
     list.forEach((query: string) => {
       const onMQLEvent = (e: MediaQueryListEvent) => {
@@ -166,7 +169,7 @@ function buildQueryCss(mediaQueries: string[], _document: Document) {
       if (!(styleEl as any).styleSheet) {
         const cssText = `
 /*
-  @angular/flex-layout - workaround for possible browser quirk with mediaQuery listeners
+  @ngular/screen - workaround for possible browser quirk with mediaQuery listeners
   see http://bit.ly/2sd4HMP
 */
 @media ${query} {.fx-query-test{ }}
