@@ -11,7 +11,7 @@ import { ScreenObserver, ScreenObserved } from '@libs/dist/screen';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'facade';
+  title = 'demo';
   constructor(
     private screenObserver: ScreenObserver,
   ) {

@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run facade:serve-ssr",
-    "serve:ssr": "node dist/facade/server/main.js",
-    "build:ssr": "ng build --configuration production && ng run facade:server:production",
-    "prerender": "ng run facade:prerender"
+    "dev:ssr": "ng run demo:serve-ssr",
+    "serve:ssr": "node dist/demo/server/main.js",
+    "build:ssr": "ng build --configuration production && ng run demo:server:production",
+    "prerender": "ng run demo:prerender"
   },
   "private": true,
   "dependencies": {

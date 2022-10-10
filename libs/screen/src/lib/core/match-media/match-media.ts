@@ -13,7 +13,7 @@ import {filter, mergeAll} from 'rxjs/operators';
 import {ScreenObserved} from '../screen-observed';
 
 /**
- * MediaMonitor configures listeners to mediaQuery changes and publishes an Observable facade to
+ * MediaMonitor configures listeners to mediaQuery changes and publishes an Observable demo to
  * convert mediaQuery change callbacks to subscriber notifications. These notifications will be
  * performed within the ng Zone to trigger change detections and component updates.
  *

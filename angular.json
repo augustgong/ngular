@@ -3,27 +3,27 @@
   "version": 1,
   "newProjectRoot": "libs",
   "projects": {
-    "facade": {
+    "demo": {
       "projectType": "application",
       "schematics": {},
-      "root": "apps/facade",
-      "sourceRoot": "apps/facade/src",
+      "root": "apps/demo",
+      "sourceRoot": "apps/demo/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
-            "outputPath": "dist/facade/browser",
-            "index": "apps/facade/src/index.html",
-            "main": "apps/facade/src/main.ts",
-            "polyfills": "apps/facade/src/polyfills.ts",
-            "tsConfig": "apps/facade/tsconfig.app.json",
+            "outputPath": "dist/demo/browser",
+            "index": "apps/demo/src/index.html",
+            "main": "apps/demo/src/main.ts",
+            "polyfills": "apps/demo/src/polyfills.ts",
+            "tsConfig": "apps/demo/tsconfig.app.json",
             "assets": [
-              "apps/facade/src/favicon.ico",
-              "apps/facade/src/assets"
+              "apps/demo/src/favicon.ico",
+              "apps/demo/src/assets"
             ],
             "styles": [
-              "apps/facade/src/styles.css"
+              "apps/demo/src/styles.css"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -37,8 +37,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/facade/src/environments/environment.ts",
-                  "with": "apps/facade/src/environments/environment.prod.ts"
+                  "replace": "apps/demo/src/environments/environment.ts",
+                  "with": "apps/demo/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -66,26 +66,26 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "facade:build"
+            "browserTarget": "demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "facade:build:production"
+              "browserTarget": "demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "facade:build"
+            "browserTarget": "demo:build"
           }
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/facade/server",
-            "main": "apps/facade/server.ts",
-            "tsConfig": "apps/facade/tsconfig.server.json",
+            "outputPath": "dist/demo/server",
+            "main": "apps/demo/server.ts",
+            "tsConfig": "apps/demo/tsconfig.server.json",
             "sourceMap": true,
             "optimization": false
           },
@@ -94,8 +94,8 @@
               "outputHashing": "media",
               "fileReplacements": [
                 {
-                  "replace": "apps/facade/src/environments/environment.ts",
-                  "with": "apps/facade/src/environments/environment.prod.ts"
+                  "replace": "apps/demo/src/environments/environment.ts",
+                  "with": "apps/demo/src/environments/environment.prod.ts"
                 }
               ],
               "sourceMap": false,
@@ -107,21 +107,21 @@
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
-            "browserTarget": "facade:build",
-            "serverTarget": "facade:server"
+            "browserTarget": "demo:build",
+            "serverTarget": "demo:server"
           },
           "configurations": {
             "production": {
-              "browserTarget": "facade:build:production",
-              "serverTarget": "facade:server:production"
+              "browserTarget": "demo:build:production",
+              "serverTarget": "demo:server:production"
             }
           }
         },
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "browserTarget": "facade:build:production",
-            "serverTarget": "facade:server:production",
+            "browserTarget": "demo:build:production",
+            "serverTarget": "demo:server:production",
             "routes": [
               "/"
             ]
