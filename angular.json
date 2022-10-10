@@ -191,6 +191,5 @@
     }},
   "cli": {
     "analytics": "71ab7157-3482-4d8c-ae63-ec0bf5a21e27"
-  },
-  "defaultProject": "facade"
+  }
 }
