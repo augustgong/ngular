@@ -1,3 +1,3 @@
 # Ngular
 
-This project for angular.
+Libraries to be with Angular.
