@@ -9,7 +9,6 @@ import {InjectionToken} from '@angular/core';
 
 /** a set of configuration options for FlexLayoutModule */
 export interface LayoutConfigOptions {
-  addFlexToParent?: boolean;
   addOrientationBps?: boolean;
   disableDefaultBps?: boolean;
   disableVendorPrefixes?: boolean;
@@ -21,7 +20,6 @@ export interface LayoutConfigOptions {
 }
 
 export const DEFAULT_CONFIG: LayoutConfigOptions = {
-  addFlexToParent: true,
   addOrientationBps: false,
   disableDefaultBps: false,
   disableVendorPrefixes: false,
