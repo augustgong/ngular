@@ -8,7 +8,7 @@
 import {Inject, Injectable} from '@angular/core';
 
 import {mergeAlias} from '../add-alias';
-import {ScreenChange} from '../screen-change';
+import {ScreenObserved} from '../screen-observed';
 import {BreakPoint} from '../breakpoints/break-point';
 import {LAYOUT_CONFIG, LayoutConfigOptions} from '../tokens/library-config';
 import {BreakPointRegistry, OptionalBreakPoint} from '../breakpoints/break-point-registry';
@@ -53,8 +53,8 @@ export class PrintHook {
     return [...queries, PRINT];
   }
 
-  /** Is the ScreenChange event for any 'print' @media */
-  isPrintEvent(e: ScreenChange): boolean {
+  /** Is the ScreenObserved event for any 'print' @media */
+  isPrintEvent(e: ScreenObserved): boolean {
     return e.mediaQuery.startsWith(PRINT);
   }
 
@@ -71,7 +71,7 @@ export class PrintHook {
   }
 
   /** Lookup breakpoint associated with mediaQuery */
-  getEventBreakpoints({mediaQuery}: ScreenChange): BreakPoint[] {
+  getEventBreakpoints({mediaQuery}: ScreenObserved): BreakPoint[] {
     const bp = this.breakpoints.findByQuery(mediaQuery);
     const list = bp ? [...this.printBreakPoints, bp] : this.printBreakPoints;
 
@@ -79,7 +79,7 @@ export class PrintHook {
   }
 
   /** Update event with printAlias mediaQuery information */
-  updateEvent(event: ScreenChange): ScreenChange {
+  updateEvent(event: ScreenObserved): ScreenObserved {
     let bp: OptionalBreakPoint = this.breakpoints.findByQuery(event.mediaQuery);
     if (this.isPrintEvent(event)) {
       // Reset from 'print' to first (highest priority) print breakpoint
@@ -94,7 +94,7 @@ export class PrintHook {
    * @return pipeable filter predicate
    */
   interceptEvents(target: HookTarget) {
-    return (event: ScreenChange) => {
+    return (event: ScreenObserved) => {
       if (this.isPrintEvent(event)) {
         if (event.matches && !this.isPrinting) {
           this.startPrinting(target, this.getEventBreakpoints(event));
@@ -112,7 +112,7 @@ export class PrintHook {
 
   /** Stop screenChange event propagation in event streams */
   blockPropagation() {
-    return (event: ScreenChange): boolean => {
+    return (event: ScreenObserved): boolean => {
       return !(this.isPrinting || this.isPrintEvent(event));
     };
   }
@@ -151,7 +151,7 @@ export class PrintHook {
    *    - sort and save when starting print
    *    - restore as activatedTargets and clear when stop printing
    */
-  collectActivations(event: ScreenChange) {
+  collectActivations(event: ScreenObserved) {
     if (!this.isPrinting) {
       if (!event.matches) {
         const bp = this.breakpoints.findByQuery(event.mediaQuery);

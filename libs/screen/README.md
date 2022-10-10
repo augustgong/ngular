@@ -17,7 +17,7 @@ Usage snippet
 ```ts
 import { Injectable } from '@angular/core';
 import {
-  ScreenObserver, ScreenChange,
+  ScreenObserver, ScreenObserved,
   DEFAULT_BREAKPOINTS_ALIAS as DeBrAlias,
 } from '@ngular/screen';
 
@@ -28,7 +28,7 @@ export class ApplayoutService {
     private screenObserver: ScreenObserver,
   ) {
     this.screenObserver.asObservable().pipe(
-    ).subscribe((changes: ScreenChange[]) => {
+    ).subscribe((changes: ScreenObserved[]) => {
       /**
        * Feel the changes in here.
        * You can see the changes in precedence of the order according to priority.
@@ -53,7 +53,7 @@ export class ApplayoutService {
 ```ts
 import { Injectable } from '@angular/core';
 import {
-  ScreenObserver, ScreenChange,
+  ScreenObserver, ScreenObserved,
   DEFAULT_BREAKPOINTS_ALIAS as DeBrAlias,
 } from '@ngular/screen';
 
@@ -64,10 +64,10 @@ export class ApplayoutService {
     private screenObserver: ScreenObserver,
   ) {
     this.screenObserver.asObservable().pipe(
-    ).subscribe((changes: ScreenChange[]) => {
+    ).subscribe((changes: ScreenObserved[]) => {
       console.log(changes);
       /**
-       * 여기에서 'ScreenChange[]'의 내용을 검토해 보세요.
+       * 여기에서 'ScreenObserved[]'의 내용을 검토해 보세요.
        * 아래 링크에서 미디어쿼리-레인지-우선순위(MediaQuery Range Prioritization)에 대한 내용을 참고하여
        * 어떤 '브레이크포인트'들이 발생할지 확인할 수 있습니다.
        * https://github.com/angular/flex-layout/wiki/Responsive-API#breakpoint-activation-fallback-algorithm

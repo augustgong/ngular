@@ -10,7 +10,7 @@ import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {BehaviorSubject, Observable, Observer, of} from 'rxjs';
 import {filter, mergeAll} from 'rxjs/operators';
 
-import {ScreenChange} from '../screen-change';
+import {ScreenObserved} from '../screen-observed';
 
 /**
  * MediaMonitor configures listeners to mediaQuery changes and publishes an Observable facade to
@@ -22,7 +22,7 @@ import {ScreenChange} from '../screen-change';
 @Injectable({providedIn: 'root'})
 export class MatchMedia {
   /** Initialize source with 'all' so all non-responsive APIs trigger style updates */
-  readonly source = new BehaviorSubject<ScreenChange>(new ScreenChange(true));
+  readonly source = new BehaviorSubject<ScreenObserved>(new ScreenObserved(true));
   registry = new Map<string, MediaQueryList>();
 
   constructor(
@@ -59,9 +59,9 @@ export class MatchMedia {
    * If a mediaQuery is not specified, then ALL mediaQuery activations will
    * be announced.
    */
-  observe(): Observable<ScreenChange>;
-  observe(mediaQueries: string[]): Observable<ScreenChange>;
-  observe(mediaQueries: string[], filterOthers: boolean): Observable<ScreenChange>;
+  observe(): Observable<ScreenObserved>;
+  observe(mediaQueries: string[]): Observable<ScreenObserved>;
+  observe(mediaQueries: string[], filterOthers: boolean): Observable<ScreenObserved>;
 
   /**
    * External observers can watch for all (or a specific) mql changes.
@@ -72,18 +72,18 @@ export class MatchMedia {
    * This logic also enforces logic to register all mediaQueries BEFORE notify
    * subscribers of notifications.
    */
-  observe(mqList?: string[], filterOthers = false): Observable<ScreenChange> {
+  observe(mqList?: string[], filterOthers = false): Observable<ScreenObserved> {
     if (mqList && mqList.length) {
-      const matchMedia$: Observable<ScreenChange> = this._observable$.pipe(
-        filter((change: ScreenChange) => {
+      const matchMedia$: Observable<ScreenObserved> = this._observable$.pipe(
+        filter((change: ScreenObserved) => {
           return !filterOthers ? true : (mqList.indexOf(change.mediaQuery) > -1);
         })
       );
-      const registration$: Observable<ScreenChange> = new Observable((observer: Observer<ScreenChange>) => {  // tslint:disable-line:max-line-length
-        const matches: Array<ScreenChange> = this.registerQuery(mqList);
+      const registration$: Observable<ScreenObserved> = new Observable((observer: Observer<ScreenObserved>) => {  // tslint:disable-line:max-line-length
+        const matches: Array<ScreenObserved> = this.registerQuery(mqList);
         if (matches.length) {
           const lastChange = matches.pop()!;
-          matches.forEach((e: ScreenChange) => {
+          matches.forEach((e: ScreenObserved) => {
             observer.next(e);
           });
           this.source.next(lastChange); // last match is cached
@@ -99,14 +99,14 @@ export class MatchMedia {
 
   /**
    * Based on the BreakPointRegistry provider, register internal listeners for each unique
-   * mediaQuery. Each listener emits specific ScreenChange data to observers
+   * mediaQuery. Each listener emits specific ScreenObserved data to observers
    */
   registerQuery(mediaQuery: string | string[]) {
     const list = (function listination() {
       return Array.isArray(mediaQuery) ? mediaQuery : [mediaQuery];
     })();
     
-    const matches: ScreenChange[] = [];
+    const matches: ScreenObserved[] = [];
 
     /** 
      * 아래 문제는 일어나지 않는 걸로 보인다. 일단 코멘트 처리만 해두고, 상황을 지켜 보자.
@@ -115,7 +115,7 @@ export class MatchMedia {
 
     list.forEach((query: string) => {
       const onMQLEvent = (e: MediaQueryListEvent) => {
-        this._zone.run(() => this.source.next(new ScreenChange(e.matches, query)));
+        this._zone.run(() => this.source.next(new ScreenObserved(e.matches, query)));
       };
 
       let mql = this.registry.get(query);
@@ -127,7 +127,7 @@ export class MatchMedia {
 
       (function collectEvenIfDuringInit() {
         if (mql.matches) {
-          matches.push(new ScreenChange(true, query));
+          matches.push(new ScreenObserved(true, query));
         }
       })();
       

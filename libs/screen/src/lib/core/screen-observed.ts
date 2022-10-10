@@ -1,9 +1,9 @@
-export type MediaQuerySubscriber = (changes: ScreenChange) => void;
+export type MediaQuerySubscriber = (changes: ScreenObserved) => void;
 
 /**
  * Class instances emitted [to observers] for each mql notification
  */
-export class ScreenChange {
+export class ScreenObserved {
   property: string = '';
   value: any;
 
@@ -23,8 +23,8 @@ export class ScreenChange {
   ) {
   }
 
-  /** Create an exact copy of the ScreenChange */
-  clone(): ScreenChange {
-    return new ScreenChange(this.matches, this.mediaQuery, this.mqAlias, this.suffix);
+  /** Create an exact copy of the ScreenObserved */
+  clone(): ScreenObserved {
+    return new ScreenObserved(this.matches, this.mediaQuery, this.mqAlias, this.suffix);
   }
 }

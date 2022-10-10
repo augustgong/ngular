@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {Injectable, OnDestroy} from '@angular/core';
-import {/*class*/ScreenChange} from '../screen-change';
+import {/*class*/ScreenObserved} from '../screen-observed';
 import {BreakPointRegistry, OptionalBreakPoint} from '../breakpoints/break-point-registry';
 import {MatchMedia} from '../match-media/match-media';
 import {PrintHook} from '../media-marshaller/print-hook';
@@ -24,11 +24,11 @@ import {mergeAlias} from '../add-alias';
  * 1..n mediaQueries, the ScreenObserver will debounce notifications and report ALL *activations*
  * in 1 event notification. The reported activations will be sorted in descending priority order.
  *
- * This class uses the BreakPoint Registry to inject alias information into the raw ScreenChange
+ * This class uses the BreakPoint Registry to inject alias information into the raw ScreenObserved
  * notification. For custom mediaQuery notifications, alias information will not be injected and
  * those fields will be ''.
  *
- * Note: Developers should note that only ScreenChange activations (not de-activations)
+ * Note: Developers should note that only ScreenObserved activations (not de-activations)
  *       are announced by the ScreenObserver.
  *
  *  @usage
@@ -43,10 +43,10 @@ import {mergeAlias} from '../add-alias';
  *
  *    constructor(screenObserver: ScreenObserver) {
  *      const screen$ = screenObserver.asObservable().pipe(
- *        filter((changes: ScreenChange[]) => true)   // silly noop filter
+ *        filter((changes: ScreenObserved[]) => true)   // silly noop filter
  *      );
  *
- *      screen$.subscribe((changes: ScreenChange[]) => {
+ *      screen$.subscribe((changes: ScreenObserved[]) => {
  *        let status = '';
  *        changes.forEach( change => {
  *          status += `'${change.mqAlias}' = (${change.mediaQuery}) <br/>` ;
@@ -61,7 +61,7 @@ import {mergeAlias} from '../add-alias';
 @Injectable({providedIn: 'root'})
 export class ScreenObserver implements OnDestroy {
 
-  private readonly _screen$: Observable<ScreenChange[]>;
+  private readonly _screen$: Observable<ScreenObserved[]>;
   private readonly destroyed$ = new Subject<void>();
 
   /** Filter MediaChange notifications for overlapping breakpoints */
@@ -75,8 +75,8 @@ export class ScreenObserver implements OnDestroy {
   ) {
     this._screen$ = this.watchActivations();
     this._screen$.pipe(
-      filter((changes: ScreenChange[]) => changes.length > 0),
-      map((changes: ScreenChange[]) => changes[0])
+      filter((changes: ScreenObserved[]) => changes.length > 0),
+      map((changes: ScreenObserved[]) => changes[0])
     );
   }
 
@@ -92,7 +92,7 @@ export class ScreenObserver implements OnDestroy {
   /**
    * Observe changes to current activation 'list'
    */
-  asObservable(): Observable<ScreenChange[]> {
+  asObservable(): Observable<ScreenObserved[]> {
     return this._screen$;
   }
 
@@ -108,24 +108,25 @@ export class ScreenObserver implements OnDestroy {
 
   /**
    * Only pass/announce activations (not de-activations)
+   * 오직 활성화됨에 대해서만 전달/알림.(비활성회됨에 대해서는 관여하지 않음.)
    *
    * Since multiple-mediaQueries can be activation in a cycle,
    * gather all current activations into a single list of changes to observers
    *
-   * Inject associated (if any) alias information into the ScreenChange event
+   * Inject associated (if any) alias information into the ScreenObserved event
    * - Exclude mediaQuery activations for overlapping mQs. List bounded mQ ranges only
    * - Exclude print activations that do not have an associated mediaQuery
    *
-   * NOTE: the raw ScreenChange events [from MatchMedia] do not
+   * NOTE: the raw ScreenObserved events [from MatchMedia] do not
    *       contain important alias information; as such this info
-   *       must be injected into the ScreenChange
+   *       must be injected into the ScreenObserved
    */
-  private buildObservable(mqList: string[]): Observable<ScreenChange[]> {
-    const hasChanges = (changes: ScreenChange[]) => {
-      const isValidQuery = (change: ScreenChange) => (change.mediaQuery.length > 0);
+  private buildObservable(mqList: string[]): Observable<ScreenObserved[]> {
+    const hasChanges = (changes: ScreenObserved[]) => {
+      const isValidQuery = (change: ScreenObserved) => (change.mediaQuery.length > 0);
       return (changes.filter(isValidQuery).length > 0);
     };
-    const excludeOverlaps = (changes: ScreenChange[]) => {
+    const excludeOverlaps = (changes: ScreenObserved[]) => {
       return !this.filterOverlaps ? changes : changes.filter(change => {
         const bp = this.breakpoints.findByQuery(change.mediaQuery);
         return !bp ? true : !bp.overlapping;
@@ -135,7 +136,7 @@ export class ScreenObserver implements OnDestroy {
     return this.matchMedia
         .observe(this.hook.withPrintQuery(mqList))
         .pipe(
-          filter((change: ScreenChange) => change.matches),
+          filter((change: ScreenObserved) => change.matches),
           debounceTime(0, asapScheduler),
           switchMap(_ => of(this.findAllActivations())),
           map(excludeOverlaps),
@@ -148,18 +149,18 @@ export class ScreenObserver implements OnDestroy {
    * Find all current activations and prepare single list of activations
    * sorted by descending priority.
    */
-  private findAllActivations(): ScreenChange[] {
-    const mergeMQAlias = (change: ScreenChange) => {
+  private findAllActivations(): ScreenObserved[] {
+    const mergeMQAlias = (change: ScreenObserved) => {
       const bp: OptionalBreakPoint = this.breakpoints.findByQuery(change.mediaQuery);
       return mergeAlias(change, bp);
     };
-    const replaceWithPrintAlias = (change: ScreenChange) => {
+    const replaceWithPrintAlias = (change: ScreenObserved) => {
       return this.hook.isPrintEvent(change) ? this.hook.updateEvent(change) : change;
     };
 
     return this.matchMedia
         .activations
-        .map(query => new ScreenChange(true, query))
+        .map(query => new ScreenObserved(true, query))
         .map(replaceWithPrintAlias)
         .map(mergeMQAlias)
         .sort(sortDescendingPriority);
